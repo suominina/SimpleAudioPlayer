@@ -12,5 +12,5 @@ $ make && ./final
 ```
 
 # Todo
-- Implement start/resume button
-- Show the song title
+- Implement stop/resume button
+- Show a song title
