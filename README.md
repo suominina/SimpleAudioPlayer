@@ -4,9 +4,9 @@ Copy and paste the music you want to play.
 The available audio formats are mp3, flac, and wav.
 
 # Requirements
-Ubuntu 22.04
+Tested on Ubuntu 22.04. 
 You need to install SDL2 and SDL2_mixer to build this program.
-After all dependencies are installed, hit the commands below.
+After all dependencies are installed, hit these commands.
 ```
 $ make && ./final
 ```
