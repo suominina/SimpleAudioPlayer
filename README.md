@@ -1,4 +1,4 @@
-# Simple Audio Player
+# A Simple Audio Player
 A simple audio player implemented in C.
 Copy and paste the music you want to play.
 The available audio formats are mp3, flac, and wav.
