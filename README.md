@@ -3,7 +3,7 @@ A simple audio player implemented in C.
 Copy and paste the music you want to play.
 The available audio formats are mp3, flac, and wav.
 
-# Requirements
+# Installation
 Tested on Ubuntu 22.04. 
 You need to install SDL2 and SDL2_mixer to build this program.
 After all dependencies are installed, hit these commands.
