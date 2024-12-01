@@ -5,7 +5,9 @@ The available audio formats are mp3, flac, and wav.
 
 # Installation
 Tested on Ubuntu 22.04. 
-You need to install SDL2 and SDL2_mixer to build this program.
+Dependencies are SDL2 and SDL2_mixer.
+You might need to modify Makefile.
+
 After all dependencies are installed, hit the command below.
 ```
 $ make && ./final
