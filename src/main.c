@@ -31,8 +31,8 @@ char *play_music(char *file_path, Mix_Music *music)
 {
      Uint16 format = AUDIO_S16SYS;
      int frequency = 48000; /* Reasonable default according to SDL_mixer.h */
-     int channels = 2; /* 1 for mono, 2 for stereo */
-     int chunksize = 2048; /* Reasonable default according to SDL_mixer.h */
+     int channels = 2;      /* 1 for mono, 2 for stereo */
+     int chunksize = 2048;  /* Reasonable default according to SDL_mixer.h */
  
      check_code(Mix_OpenAudio(frequency, format, channels, chunksize));
      music = check_ptr(Mix_LoadMUS(file_path));
