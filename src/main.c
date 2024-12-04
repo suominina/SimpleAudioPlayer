@@ -7,6 +7,7 @@
 #include <SDL.h>
 #include <SDL_mixer.h>
 
+
 void check_code(int code)
 {
     if (code < 0) {
@@ -26,7 +27,7 @@ void *check_ptr(void *ptr)
 }
 
 /* Play dropped music, return the music title. */
-char *play_music(char *dropped_file, Mix_Music *music)
+char *play_music(char *file_path, Mix_Music *music)
 {
      Uint16 format = AUDIO_S16SYS;
      int frequency = 48000; /* Reasonable default according to SDL_mixer.h */
@@ -34,17 +35,17 @@ char *play_music(char *dropped_file, Mix_Music *music)
      int chunksize = 2048; /* Reasonable default according to SDL_mixer.h */
  
      check_code(Mix_OpenAudio(frequency, format, channels, chunksize));
-     music = check_ptr(Mix_LoadMUS(dropped_file));
+     music = check_ptr(Mix_LoadMUS(file_path));
      check_code(Mix_PlayMusic(music, 0));
 
-     return Mix_GetMusicTitle(music);
-
+     return (char *)Mix_GetMusicTitle(music);
 }
+
 
 int main(int argc, char **argv)
 {
-    char *dropped_file;
-    Mix_Music *music;
+    char *file_path;
+    Mix_Music *music = NULL;
 
     check_code(SDL_Init(SDL_INIT_EVERYTHING));
     check_code(Mix_Init(MIX_INIT_MP3 | MIX_INIT_FLAC | MIX_INIT_WAVPACK));
@@ -66,13 +67,24 @@ int main(int argc, char **argv)
                 break;
 
             case SDL_DROPFILE:
-                dropped_file = event.drop.file;
-                if (dropped_file) {
-                    char *now_playing = play_music(dropped_file, music);
-                    printf("Now playing... %s\n", now_playing);
+                file_path= event.drop.file;
+                if (file_path) {
+                    char *now_playing = play_music(file_path, music);
+                    printf("now playing... %s\n", now_playing);
                     fflush(stdout);
                 } else {
                     fprintf(stderr, "Failed to play music.\n");
+                    break;
+                }
+                break;
+
+            case SDL_KEYDOWN:
+                switch (event.key.keysym.sym) {
+                case SDLK_SPACE:
+                    if (Mix_PausedMusic())
+                        Mix_ResumeMusic();
+                    else
+                        Mix_PauseMusic();
                     break;
                 }
                 break;
@@ -81,7 +93,9 @@ int main(int argc, char **argv)
     }
     SDL_Delay(0);
 
-    if (dropped_file) { SDL_free(dropped_file); }
+    // Creanups
+    if (file_path) { SDL_free(file_path); }
+    if (music) { Mix_FreeMusic(music); }
     SDL_DestroyWindow(window);
     Mix_Quit();
     SDL_Quit();
