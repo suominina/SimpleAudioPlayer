@@ -12,7 +12,9 @@ After all dependencies are installed, hit the command below.
 ```
 $ make && ./final
 ```
+# How To Use
+Copy & paste a music file you wanna play.
+You can pause/resume the music by hitting space key.
 
 # Todo
-- Implement stop/resume button
-- Show the song title
+- Implement a feature that changes the volume of the music being played.
