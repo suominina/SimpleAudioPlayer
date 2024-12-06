@@ -29,8 +29,8 @@ void *check_ptr(void *ptr)
 /* Play dropped music, return the music title. */
 char *play_music(char *file_path, Mix_Music *music)
 {
-     Uint16 format = AUDIO_S16SYS;
      int frequency = 48000; /* Reasonable default according to SDL_mixer.h */
+     Uint16 format = AUDIO_S16SYS;
      int channels = 2;      /* 1 for mono, 2 for stereo */
      int chunksize = 2048;  /* Reasonable default according to SDL_mixer.h */
  
@@ -41,9 +41,26 @@ char *play_music(char *file_path, Mix_Music *music)
      return (char *)Mix_GetMusicTitle(music);
 }
 
+// \param flag 1 to volume up, 0 to volume down.
+void change_music_volume(Mix_Music *music, int volume, int flag)
+{
+    if (flag == 1) {
+        volume = Mix_GetMusicVolume(music);
+        volume += 3;
+        Mix_VolumeMusic(volume);
+    } else if (flag == 0) {
+        volume = Mix_GetMusicVolume(music);
+        volume -= 3;
+        Mix_VolumeMusic(volume);
+    } else {
+        fprintf(stderr, "bad flag was passed.");
+    }
+}
+
 
 int main(int argc, char **argv)
 {
+    int volume = MIX_MAX_VOLUME;
     char *file_path;
     Mix_Music *music = NULL;
 
@@ -52,8 +69,8 @@ int main(int argc, char **argv)
 
     SDL_Window *window = 
         check_ptr(SDL_CreateWindow("Music Player", 
-                         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                         800, 450, SDL_WINDOW_RESIZABLE));
+                  SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                  800, 450, SDL_WINDOW_RESIZABLE));
 
     SDL_EventState(SDL_DROPFILE, SDL_ENABLE);
 
@@ -86,14 +103,25 @@ int main(int argc, char **argv)
                     else
                         Mix_PauseMusic();
                     break;
+
+                case SDLK_UP:
+                    change_music_volume(music, volume, 1);
+
+                    break;
+
+                case SDLK_DOWN:
+                    change_music_volume(music, volume, 0);
+
+                    break;
                 }
+
                 break;
             }
         }
     }
     SDL_Delay(0);
 
-    // Creanups
+    // Cleanups
     if (file_path) { SDL_free(file_path); }
     if (music) { Mix_FreeMusic(music); }
     SDL_DestroyWindow(window);
