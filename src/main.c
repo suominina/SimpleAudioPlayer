@@ -12,7 +12,6 @@
 #define WINDOW_WIDTH 1000 
 #define WINDOW_HEIGHT 450 
 
-#define FILE_NAME_MAX 255
 #define NOW_PLAYING_MAX 1024
 
 
