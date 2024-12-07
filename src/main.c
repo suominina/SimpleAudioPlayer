@@ -53,7 +53,7 @@ void *tcp(void *ptr)
 }
 
 /* 
- * \param flag 1 to volume up, -1 to volume down.
+ * \param flag 1 to volume up, 0 to volume down.
  */
 void change_music_volume(Mix_Music *music, int volume, int flag)
 {
@@ -61,10 +61,7 @@ void change_music_volume(Mix_Music *music, int volume, int flag)
         volume = Mix_GetMusicVolume(music);
         volume += 4;
         Mix_VolumeMusic(volume);
-    }  else if (flag == 0) {
-        Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
-    }
-    else if (flag == -1) {
+    } else if (flag == 0) {
         volume = Mix_GetMusicVolume(music);
         volume -= 4;
         Mix_VolumeMusic(volume);
@@ -225,7 +222,7 @@ int main(int argc, char **argv)
                     break;
 
                 case SDLK_DOWN:
-                    change_music_volume(music, volume, -1);
+                    change_music_volume(music, volume, 0);
                     break;
 
                 case SDLK_q:
