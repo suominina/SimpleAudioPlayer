@@ -146,13 +146,13 @@ int main(int argc, char **argv)
         check_ptr(SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED));
 
 
-    char *msg = "Drag & drop a music file";
+    char *init_msg = "Drag & drop a music file";
     tcc(TTF_Init());
     TTF_Font *font =
         tcp(TTF_OpenFont("OpenSans-Regular.ttf", 30));
     SDL_Color string_color = { 255, 255, 255 }; // white
 
-    SDL_Surface* surface = TTF_RenderText_Blended(font, msg, string_color);
+    SDL_Surface* surface = TTF_RenderText_Blended(font, init_msg, string_color);
     SDL_Texture* texture = 
         check_ptr(SDL_CreateTextureFromSurface(renderer, surface));
 
