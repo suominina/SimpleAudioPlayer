@@ -9,11 +9,10 @@ You might need to modify Makefile.
 
 After all dependencies are installed, hit the command below.
 ```
-$ make && ./final
+$ make && ./SMP
 ```
 # How To Use
 Copy & paste a music file you wanna play.
 You can pause/resume the music by hitting space key.
-
-# Todo
-- Implement a feature that changes the volume of the music being played.
+You can adjust the volume of the playing music by hitthing arrow key.
+Hit 'q' to quit the app.
