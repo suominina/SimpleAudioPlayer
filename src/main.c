@@ -12,7 +12,7 @@
 #define WINDOW_WIDTH 1000 
 #define WINDOW_HEIGHT 450 
 
-#define NOW_PLAYING_MAX 1024
+#define MUSIC_QUEUE_MAX 1024
 
 
 void check_code(int code)
@@ -187,8 +187,8 @@ int main(int argc, char **argv)
                 if (file_path) {
                     play_music(file_path, music);
 
-                    char *now_playing = check_ptr((char *)malloc(NOW_PLAYING_MAX));
-                    snprintf(now_playing, NOW_PLAYING_MAX, "%s%s", 
+                    char *now_playing = check_ptr((char *)malloc(MUSIC_QUEUE_MAX));
+                    snprintf(now_playing, MUSIC_QUEUE_MAX, "%s%s", 
                              "Now playing... ", basename(file_path));
 
                     surface = 
